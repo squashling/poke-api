@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { AppTitle } from "assets/title";
-import { Button } from "components/Button";
-import PokeShop from "containers/PokeShop";
+import { PokeShop } from "containers/PokeShop";
 import PokePack from "containers/PokePack";
 import PokeDetails from "containers/PokeDetails";
 import Pokedex from "containers/Pokedex";
@@ -15,6 +14,7 @@ function App() {
     "poke-details",
     "pokedex"
   ]);
+
   useEffect(() => {
     renderView();
   }, [view]);
@@ -39,7 +39,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="app-wrapper">
       <AppTitle />
       <Navbar navItems={navItems} changeView={changeView} />
       {renderView()}

@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { getPokemon } from "redux/ducks/pokedex";
 
 export default function Pokedex() {
-  const pokemonList = useSelector((state) => state.pokedex.pokemonList);
-  const offset = useSelector((state) => state.pokedex.offset);
+  const pokemonList = useSelector(state => state.pokedex.pokemonList);
+  const offset = useSelector(state => state.pokedex.offset);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPokemon(offset));
-  }, []);
+  }, [dispatch, offset]);
 
   console.log(pokemonList);
   return (

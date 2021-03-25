@@ -16,8 +16,8 @@ export const AppTitle = () => {
             transform="translate(567 296)"
             fill="#feca06"
             stroke="#395ba7"
-            stroke-linecap="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeWidth="1.5"
           />
           <path
             id="Path_7"
@@ -26,8 +26,8 @@ export const AppTitle = () => {
             transform="translate(638 297)"
             fill="#feca06"
             stroke="#395ba7"
-            stroke-linecap="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeWidth="1.5"
           />
           <path
             id="Path_6"
@@ -36,8 +36,8 @@ export const AppTitle = () => {
             transform="translate(629 293)"
             fill="#feca06"
             stroke="#395ba7"
-            stroke-linecap="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeWidth="1.5"
           />
           <path
             id="Path_5"
@@ -46,8 +46,8 @@ export const AppTitle = () => {
             transform="translate(614 298)"
             fill="#feca06"
             stroke="#395ba7"
-            stroke-linecap="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeWidth="1.5"
           />
           <path
             id="Path_3"
@@ -56,8 +56,8 @@ export const AppTitle = () => {
             transform="translate(585 292)"
             fill="#feca06"
             stroke="#395ba7"
-            stroke-linecap="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeWidth="1.5"
           />
           <path
             id="Path_2"
@@ -66,8 +66,8 @@ export const AppTitle = () => {
             transform="translate(577 294)"
             fill="#feca06"
             stroke="#395ba7"
-            stroke-linecap="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeWidth="1.5"
           />
           <path
             id="Path_4"
@@ -76,8 +76,8 @@ export const AppTitle = () => {
             transform="translate(597 294)"
             fill="#feca06"
             stroke="#395ba7"
-            stroke-linecap="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeWidth="1.5"
           />
           <path
             id="Path_8"
@@ -86,8 +86,8 @@ export const AppTitle = () => {
             transform="translate(650 293)"
             fill="#feca06"
             stroke="#395ba7"
-            stroke-linecap="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeWidth="1.5"
           />
         </g>
       </svg>
