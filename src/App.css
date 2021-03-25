@@ -3,3 +3,18 @@
   width: auto;
   padding-top: 20px;
 }
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2em;
+  background: blue;
+  color: white;
+  width: 4em;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: yellow;
+}

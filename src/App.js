@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { AppTitle } from "assets/title";
+import { Button } from "components/Button";
 import PokeShop from "containers/PokeShop";
 import PokePack from "containers/PokePack";
 import PokeDetails from "containers/PokeDetails";
@@ -34,7 +35,6 @@ function App() {
   };
 
   const changeView = (view) => {
-    console.log("view", view);
     setView(view);
   };
 
@@ -43,6 +43,7 @@ function App() {
       <Navbar navItems={navItems} changeView={changeView} />
       <AppTitle />
 
+      <Button label="Hello" id="1" onClick={() => console.log("click")} />
       {renderView()}
     </div>
   );
