@@ -1,9 +1,10 @@
 import axios from "axios";
+import { SET_POKEMON } from "redux/types";
 
-export default getPokemon = (page) => {
+export const getPokemon = (page) => {
   return (dispatch) => {
     return axios
-      .get()
+      .get(process.env.REACT_APP_API_HOST + "pokemon?limit=100&offset=200")
       .then((res) => {
         console.log(res);
         dispatch(setPokemon());
@@ -12,7 +13,16 @@ export default getPokemon = (page) => {
   };
 };
 
-const initialState = {};
+const setPokemon = (pokemon) => {
+  return {
+    type: SET_POKEMON,
+    pokemonList: pokemon,
+  };
+};
+
+const initialState = {
+  pokemonList: [],
+};
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
