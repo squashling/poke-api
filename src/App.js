@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { AppTitle } from "assets/title";
-import Home from "Home";
+import PokeShop from "containers/PokeShop";
 
 function App() {
-  const [view, setView] = useState("home");
+  const [view, setView] = useState("pokeShop");
 
   useEffect(() => {
     renderView();
@@ -12,10 +12,10 @@ function App() {
 
   const renderView = () => {
     switch (view) {
-      case "home":
-        return <Home />;
+      case "pokeShop":
+        return <PokeShop />;
       default:
-        return <Home />;
+        return <PokeShop />;
     }
   };
 
