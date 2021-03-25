@@ -13,7 +13,7 @@ function App() {
     "pokeshop",
     "pokepack",
     "poke-details",
-    "pokedex",
+    "pokedex"
   ]);
   useEffect(() => {
     renderView();
@@ -34,16 +34,14 @@ function App() {
     }
   };
 
-  const changeView = (view) => {
+  const changeView = view => {
     setView(view);
   };
 
   return (
     <div className="App">
-      <Navbar navItems={navItems} changeView={changeView} />
       <AppTitle />
-
-      <Button label="Hello" id="1" onClick={() => console.log("click")} />
+      <Navbar navItems={navItems} changeView={changeView} />
       {renderView()}
     </div>
   );

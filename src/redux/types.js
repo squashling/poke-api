@@ -1,1 +1,4 @@
 export const SET_POKEMON = "SET_POKEMON";
+
+//POKESHOP
+export const GET_SHOP_ITEMS = "GET_SHOP_ITEMS";
