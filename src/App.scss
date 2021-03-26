@@ -59,35 +59,35 @@
   justify-content: center;
   align-self: center;
   align-items: center;
-}
 
-.pokedex-window {
-  height: 20rem;
-  width: 20rem;
-  background-color: #e3e3e3;
-  border-radius: 5%;
-}
+  .pokedex-window {
+    height: 20rem;
+    width: 20rem;
+    background-color: #e3e3e3;
+    border-radius: 5%;
+  }
 
-.game-arrows-wrapper {
-  display: flex;
-  flex-flow: row;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  margin-top: 4rem;
-}
-.game-arrows-vertical {
-  background-color: #404040;
-  width: 2rem;
-  height: 8rem;
-  position: absolute;
-  border-radius: 5%;
-}
-.game-arrows-horizontal {
-  background-color: #404040;
-  width: 8rem;
-  height: 2rem;
-  border-radius: 5%;
+  .game-arrows-wrapper {
+    display: flex;
+    flex-flow: row;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+    .game-arrows-vertical {
+      background-color: #404040;
+      width: 2rem;
+      height: 8rem;
+      position: absolute;
+      border-radius: 5%;
+    }
+    .game-arrows-horizontal {
+      background-color: #404040;
+      width: 8rem;
+      height: 2rem;
+      border-radius: 5%;
+    }
+  }
 }
 
 .shop-wrapper {

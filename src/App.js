@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./App.css";
+import "./App.scss";
 import { AppTitle } from "assets/title";
 import { PokeShop } from "containers/PokeShop";
 import PokePack from "containers/PokePack";
@@ -12,7 +12,7 @@ function App() {
     "pokeshop",
     "pokepack",
     "poke-details",
-    "pokedex"
+    "pokedex",
   ]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function App() {
     }
   };
 
-  const changeView = view => {
+  const changeView = (view) => {
     setView(view);
   };
 
