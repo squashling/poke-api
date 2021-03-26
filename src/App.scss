@@ -65,6 +65,10 @@
     width: 20rem;
     background-color: #e3e3e3;
     border-radius: 5%;
+    .pokemon-sprite {
+      width: 100%;
+      height: auto;
+    }
   }
 
   .game-arrows-wrapper {
@@ -86,6 +90,33 @@
       width: 8rem;
       height: 2rem;
       border-radius: 5%;
+      position: relative;
+      .prev {
+        position: absolute;
+        left: 5px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: #dfe6e9;
+        border-radius: 50%;
+        height: 10px;
+        width: 10px;
+        opacity: 75%;
+        cursor: pointer;
+      }
+      .next {
+        position: absolute;
+        right: 5px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: #dfe6e9;
+        border-radius: 50%;
+        height: 10px;
+        width: 10px;
+        opacity: 75%;
+        cursor: pointer;
+      }
     }
   }
 }

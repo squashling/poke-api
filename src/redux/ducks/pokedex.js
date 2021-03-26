@@ -7,7 +7,15 @@ export const getPokemon = (offset) => {
       .get(process.env.REACT_APP_API_HOST + "pokemon?limit=20&offset=" + offset)
       .then((res) => {
         console.log(res);
-        dispatch(setPokemon(res.data.results));
+        let requests = res.data.results.map((item) => axios.get(item.url));
+        Promise.all(requests)
+          .then((values) => {
+            console.log(values);
+            let pokemon = values.map((item) => item.data);
+            console.log(pokemon);
+            dispatch(setPokemon(pokemon));
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   };
