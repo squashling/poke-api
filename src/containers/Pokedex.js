@@ -1,101 +1,99 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPokemon } from "redux/ducks/pokedex";
+import { Spinner } from "components/LoadingSpinner/Spinner";
 
 export default function Pokedex() {
   const pokemonList = useSelector((state) => state.pokedex.pokemonList);
   const offset = useSelector((state) => state.pokedex.offset);
+  const loadingPokemon = useSelector((state) => state.pokedex.loadingPokemon);
   const dispatch = useDispatch();
   const [pokeIndex, setPokemonIndex] = useState(0);
   const [xAxis, setXAxis] = useState(0);
+  const [widthImg] = useState(40);
 
   useEffect(() => {
     dispatch(getPokemon(offset));
-  }, [dispatch, offset]);
-
-  useEffect(() => {
-    dispatch(getPokemon(offset));
-  }, [pokeIndex]);
+  }, [dispatch]);
 
   const nextPokemon = () => {
     if (pokeIndex < pokemonList.length - 1) {
-      imageSlideRight();
-
+      imageSlideNext();
       let newIndex = pokeIndex + 1;
       setPokemonIndex(newIndex);
+      imageSlideNext();
     } else if (pokeIndex === pokemonList.length - 1) {
-      setPokemonIndex(0);
-
+      console.log("or this");
       let newOffset = offset + 20;
       dispatch(getPokemon(newOffset));
+      setPokemonIndex(0);
+
+      imageSlideNext();
     } else return;
   };
 
   const prevPokemon = () => {
     if (pokeIndex > 0) {
-      imageSlideLeft();
-
+      imageSlidePrev();
       let newIndex = pokeIndex - 1;
       setPokemonIndex(newIndex);
-    } else if (pokeIndex === 0 && offset > 20) {
+      imageSlidePrev();
+    } else if (pokeIndex === 0 && offset > 0) {
       let newOffset = offset - 20;
       setPokemonIndex(19);
       dispatch(getPokemon(newOffset));
+      imageSlidePrev();
     } else return;
   };
-  const imageSlideRight = () => {
-    let imageLength = pokemonList.length - 1;
-    // width of one image (in pixels)
-    let widthImg = 40;
-    let newXAxis = xAxis;
-    let slider = document.getElementById("image-slider-container");
+
+  const imageSlideNext = () => {
+    let imageListLength = pokemonList.length;
+    console.log(
+      "_____",
+      xAxis,
+      imageListLength * widthImg,
+      xAxis === imageListLength * widthImg
+    );
+    let newXAxis = xAxis === imageListLength * widthImg ? 0 : xAxis;
+    console.log(newXAxis);
     newXAxis += widthImg;
-    newXAxis %= imageLength * widthImg;
-    console.log("delta", newXAxis);
+    newXAxis %= imageListLength * widthImg;
+    setXAxis(newXAxis);
+    let slider = document.getElementById("image-slider-container");
+    slider.querySelector("#pokedex-window").style.marginLeft =
+      "-" + newXAxis + "rem";
+  };
+
+  const imageSlidePrev = () => {
+    let imageListLength = pokemonList.length;
+    console.log("---", xAxis);
+    let newXAxis = xAxis === 0 ? imageListLength * widthImg : xAxis;
+    newXAxis -= widthImg;
     setXAxis(newXAxis);
 
-    slider.querySelector("#pokedex-window").style.marginLeft =
-      "-" + newXAxis + "rem";
-  };
-  const imageSlideLeft = () => {
-    let imageLength = pokemonList.length - 1;
-    // width of one image (in pixels)
-    let widthImg = 40;
-    let newXAxis = xAxis;
     let slider = document.getElementById("image-slider-container");
-    newXAxis -= widthImg;
-    newXAxis %= imageLength * widthImg;
-    console.log("delta", newXAxis);
-    setXAxis(newXAxis);
     slider.querySelector("#pokedex-window").style.marginLeft =
       "-" + newXAxis + "rem";
   };
+
+  console.log("AXIS--", xAxis);
   return (
     <div className="pokedex-wrapper">
       <div id="image-slider-container" className="image-slider-container">
         <div id="pokedex-window" className="pokedex-window">
-          {pokemonList.map((pokemon) => (
-            <img
-              className="pokemon-sprite "
-              src={pokemon.sprites.front_default}
-            />
-          ))}
-          {/* {pokeIndex !== 0 && (
-            <img
-              className="pokemon-sprite  "
-              src={pokemonList[pokeIndex + 1]?.sprites.front_default}
-            />
+          {loadingPokemon ? (
+            <Spinner />
+          ) : (
+            <>
+              {pokemonList.map((pokemon) => (
+                <img
+                  key={pokemon.id}
+                  className="pokemon-sprite "
+                  src={pokemon.sprites.front_default}
+                />
+              ))}
+            </>
           )}
-          <img
-            className="pokemon-sprite "
-            src={pokemonList[pokeIndex]?.sprites.front_default}
-          />
-          {pokeIndex !== pokemonList.length - 1 && (
-            <img
-              className="pokemon-sprite "
-              src={pokemonList[pokeIndex - 1]?.sprites.front_default}
-            />
-          )} */}
         </div>
       </div>
       <div className="game-arrows-wrapper">
