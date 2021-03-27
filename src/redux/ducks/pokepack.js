@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BUY_ITEM } from "redux/types";
 
-const buyÍtem = item => {
+export const buyÍtem = item => {
   return {
     type: BUY_ITEM,
     item

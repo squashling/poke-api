@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getShopItems } from "redux/ducks/pokeshop";
+import { buyÍtem } from "redux/ducks/pokepack";
 import { ShopItem } from "components/ShopItem";
 import { Button } from "components/Button";
 import { Spinner } from "components/LoadingSpinner/Spinner";
