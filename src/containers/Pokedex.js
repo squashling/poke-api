@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPokemon } from "redux/ducks/pokedex";
 import { Spinner } from "components/LoadingSpinner/Spinner";
-
+import { HeartEmpty } from "assets/heart_empty";
+import { HeartFilled } from "assets/heart_filled";
 export default function Pokedex() {
   const pokemonList = useSelector((state) => state.pokedex.pokemonList);
   const offset = useSelector((state) => state.pokedex.offset);
@@ -12,7 +13,7 @@ export default function Pokedex() {
   const [xAxis, setXAxis] = useState(0);
   const [widthImg] = useState(40);
   const [showMore, setShowMore] = useState(false);
-
+  const [isLiked, setLikePokemon] = useState([]);
   useEffect(() => {
     dispatch(getPokemon(offset));
   }, [dispatch]);
@@ -79,7 +80,6 @@ export default function Pokedex() {
   };
 
   const detailsView = (pokemon) => {
-    console.log(pokemon.stats);
     let stats = pokemon && pokemon.stats;
     return (
       <div className={`details-container ${showMore ? "open" : "close"}`}>
@@ -101,6 +101,16 @@ export default function Pokedex() {
     setShowMore(val);
   };
 
+  const likePokemon = (id) => {
+    if (isLiked.includes(id)) {
+      let index = isLiked.indexOf(id);
+      isLiked.splice(index, 1);
+      setLikePokemon(isLiked);
+    } else {
+      setLikePokemon((isLiked) => [...isLiked, id]);
+    }
+  };
+  console.log(isLiked);
   return (
     <div className="pokedex-wrapper">
       <div id="image-slider-container" className="image-slider-container">
@@ -111,6 +121,21 @@ export default function Pokedex() {
             <>
               {pokemonList.map((pokemon, i) => (
                 <div className="display-container">
+                  {isLiked.length > 0 && isLiked.includes(pokemon.id) ? (
+                    <div
+                      onClick={() => likePokemon(pokemon.id)}
+                      className="heart"
+                    >
+                      <HeartFilled />{" "}
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => likePokemon(pokemon.id)}
+                      className="heart"
+                    >
+                      <HeartEmpty />
+                    </div>
+                  )}
                   <img
                     key={pokemon.id}
                     className="pokemon-sprite "
