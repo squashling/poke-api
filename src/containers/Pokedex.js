@@ -11,6 +11,7 @@ export default function Pokedex() {
   const [pokeIndex, setPokemonIndex] = useState(0);
   const [xAxis, setXAxis] = useState(0);
   const [widthImg] = useState(40);
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     dispatch(getPokemon(offset));
@@ -18,11 +19,15 @@ export default function Pokedex() {
 
   const nextPokemon = () => {
     if (pokeIndex < pokemonList.length - 1) {
+      setShowMore(false);
+
       imageSlideNext();
       let newIndex = pokeIndex + 1;
       setPokemonIndex(newIndex);
       imageSlideNext();
     } else if (pokeIndex === pokemonList.length - 1) {
+      setShowMore(false);
+
       let newOffset = offset + 20;
       dispatch(getPokemon(newOffset));
       setPokemonIndex(0);
@@ -33,11 +38,15 @@ export default function Pokedex() {
 
   const prevPokemon = () => {
     if (pokeIndex > 0) {
+      setShowMore(false);
+
       imageSlidePrev();
       let newIndex = pokeIndex - 1;
       setPokemonIndex(newIndex);
       imageSlidePrev();
     } else if (pokeIndex === 0 && offset > 0) {
+      setShowMore(false);
+
       let newOffset = offset - 20;
       setPokemonIndex(19);
       dispatch(getPokemon(newOffset));
@@ -70,11 +79,26 @@ export default function Pokedex() {
   };
 
   const detailsView = (pokemon) => {
-    return <div className="details-container">{pokemon.name}</div>;
+    console.log(pokemon.stats);
+    let stats = pokemon && pokemon.stats;
+    return (
+      <div className={`details-container ${showMore ? "open" : "close"}`}>
+        <span className="poke-name">{pokemon.name}</span>
+        <div className="stats-wrapper">
+          {stats &&
+            stats.map((stat) => (
+              <div className="stats-row">
+                <span className="">{stat.stat.name}</span>
+                <span className="">{stat.base_stat}</span>
+              </div>
+            ))}
+        </div>
+      </div>
+    );
   };
 
-  const showMoreDetails = () => {
-    console.log("click click mf");
+  const showMoreDetails = (val) => {
+    setShowMore(val);
   };
 
   return (
@@ -102,11 +126,11 @@ export default function Pokedex() {
       </div>
       <div className="game-arrows-wrapper">
         <div className="game-arrows-vertical">
-          <div onClick={showMoreDetails} className="clickable">
+          <div onClick={() => showMoreDetails(true)} className="clickable">
             <div className="up" />
             <i className="info-arrow material-icons">keyboard_arrow_up</i>
           </div>
-          <div onClick={showMoreDetails} className="clickable">
+          <div onClick={() => showMoreDetails(false)} className="clickable">
             <div className="down" />
             <i className="hide-arrow material-icons">keyboard_arrow_down</i>
           </div>
