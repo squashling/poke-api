@@ -23,7 +23,6 @@ export default function Pokedex() {
       setPokemonIndex(newIndex);
       imageSlideNext();
     } else if (pokeIndex === pokemonList.length - 1) {
-      console.log("or this");
       let newOffset = offset + 20;
       dispatch(getPokemon(newOffset));
       setPokemonIndex(0);
@@ -48,14 +47,8 @@ export default function Pokedex() {
 
   const imageSlideNext = () => {
     let imageListLength = pokemonList.length;
-    console.log(
-      "_____",
-      xAxis,
-      imageListLength * widthImg,
-      xAxis === imageListLength * widthImg
-    );
+
     let newXAxis = xAxis === imageListLength * widthImg ? 0 : xAxis;
-    console.log(newXAxis);
     newXAxis += widthImg;
     newXAxis %= imageListLength * widthImg;
     setXAxis(newXAxis);
@@ -66,7 +59,7 @@ export default function Pokedex() {
 
   const imageSlidePrev = () => {
     let imageListLength = pokemonList.length;
-    console.log("---", xAxis);
+
     let newXAxis = xAxis === 0 ? imageListLength * widthImg : xAxis;
     newXAxis -= widthImg;
     setXAxis(newXAxis);
@@ -76,7 +69,14 @@ export default function Pokedex() {
       "-" + newXAxis + "rem";
   };
 
-  console.log("AXIS--", xAxis);
+  const detailsView = (pokemon) => {
+    return <div className="details-container">{pokemon.name}</div>;
+  };
+
+  const showMoreDetails = () => {
+    console.log("click click mf");
+  };
+
   return (
     <div className="pokedex-wrapper">
       <div id="image-slider-container" className="image-slider-container">
@@ -85,22 +85,41 @@ export default function Pokedex() {
             <Spinner />
           ) : (
             <>
-              {pokemonList.map((pokemon) => (
-                <img
-                  key={pokemon.id}
-                  className="pokemon-sprite "
-                  src={pokemon.sprites.front_default}
-                />
+              {pokemonList.map((pokemon, i) => (
+                <div className="display-container">
+                  <img
+                    key={pokemon.id}
+                    className="pokemon-sprite "
+                    src={pokemon.sprites.front_default}
+                  />
+
+                  {i === pokeIndex && detailsView(pokemon)}
+                </div>
               ))}
             </>
           )}
         </div>
       </div>
       <div className="game-arrows-wrapper">
-        <div className="game-arrows-vertical"></div>
+        <div className="game-arrows-vertical">
+          <div onClick={showMoreDetails} className="clickable">
+            <div className="up" />
+            <i className="info-arrow material-icons">keyboard_arrow_up</i>
+          </div>
+          <div onClick={showMoreDetails} className="clickable">
+            <div className="down" />
+            <i className="hide-arrow material-icons">keyboard_arrow_down</i>
+          </div>
+        </div>
         <div className="game-arrows-horizontal">
-          <div onClick={prevPokemon} className="prev" />
-          <div onClick={nextPokemon} className="next" />
+          <div onClick={prevPokemon} className="clickable">
+            <div onClick={prevPokemon} className="prev" />
+            <i className="prev-arrow material-icons">keyboard_arrow_left</i>
+          </div>
+          <div onClick={nextPokemon} className="clickable">
+            <div onClick={nextPokemon} className="next" />
+            <i className="next-arrow material-icons">keyboard_arrow_right</i>
+          </div>
         </div>
       </div>
     </div>

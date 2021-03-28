@@ -2,7 +2,6 @@ import axios from "axios";
 import { SET_POKEMON, SET_LOADING_POKEMON } from "redux/types";
 
 export const getPokemon = (offset) => {
-  console.log("called");
   return (dispatch) => {
     dispatch(setLoadingPokemon(true));
     return axios
@@ -16,7 +15,7 @@ export const getPokemon = (offset) => {
             let pokemon = values.map((item) => item.data);
             console.log(pokemon);
             dispatch(setPokemon(pokemon, offset));
-            dispatch(setLoadingPokemon(false));
+            setTimeout(() => dispatch(setLoadingPokemon(false)), 200);
           })
           .catch((err) => {
             console.log(err);
@@ -38,7 +37,7 @@ const setPokemon = (pokemon, offset) => {
   };
 };
 
-const setLoadingPokemon = (loading) => {
+export const setLoadingPokemon = (loading) => {
   return {
     type: SET_LOADING_POKEMON,
     loadingPokemon: loading,
