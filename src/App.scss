@@ -52,6 +52,13 @@
 }
 
 .pokedex-wrapper {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(239, 83, 80, 0.819765406162465) 42%,
+    rgba(239, 83, 80, 1) 79%
+  );
   display: flex;
   flex-flow: column;
   height: 100%;
@@ -65,9 +72,9 @@
     height: 20rem;
     justify-content: center;
     display: flex;
-    overflow-x: hidden;
+    overflow: hidden;
     margin: 0 auto;
-    background-color: #e3e3e3;
+    background-color: #eeeeee;
     border-radius: 5%;
 
     .pokedex-window {
@@ -77,10 +84,57 @@
       display: flex;
       flex-flow: row;
 
-      .pokemon-sprite {
-        display: flex;
-        height: 20rem;
-        width: 20rem;
+      .display-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .pokemon-sprite {
+          display: flex;
+          height: 20rem;
+          width: 20rem;
+        }
+        .details-container {
+          background-color: #24242485;
+          display: flex;
+          flex-flow: column;
+          width: 90%;
+          height: 0;
+          color: #fff;
+          position: absolute;
+          bottom: 0;
+          transition: height 0.5s;
+          padding: 0 1rem;
+
+          &.close {
+            height: -2rem;
+          }
+          &.open {
+            height: 6rem;
+            padding: 0.5rem 1rem;
+          }
+          .poke-name {
+            width: 100%;
+            text-align: right;
+            font-weight: 700;
+            color: #ffff;
+            text-transform: uppercase;
+          }
+          .stats-wrapper {
+            display: flex;
+            flex-flow: column;
+            width: 40%;
+
+            .stats-row {
+              display: flex;
+              flex-flow: row;
+              color: #242424;
+              font-size: 10px;
+              font-weight: 700;
+              justify-content: space-between;
+            }
+          }
+        }
       }
     }
   }
@@ -109,13 +163,56 @@
     position: relative;
     justify-content: center;
     align-items: center;
-    margin-top: 4rem;
+    margin-top: 6rem;
     .game-arrows-vertical {
       background-color: #404040;
       width: 2rem;
       height: 8rem;
       position: absolute;
       border-radius: 5%;
+      .clickable {
+        cursor: pointer;
+      }
+      .info-arrow {
+        position: absolute;
+        left: 4px;
+        top: -1.4rem;
+        right: 0;
+        margin: auto;
+      }
+      .hide-arrow {
+        position: absolute;
+        left: 4px;
+        right: 0;
+        bottom: -1.4rem;
+        margin: auto;
+      }
+      .up {
+        position: absolute;
+        left: 0;
+        top: 5px;
+        right: 0;
+        margin: auto;
+        background-color: #dfe6e9;
+        border-radius: 50%;
+        height: 10px;
+        width: 10px;
+        opacity: 75%;
+        cursor: pointer;
+      }
+      .down {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 5px;
+        margin: auto;
+        background-color: #dfe6e9;
+        border-radius: 50%;
+        height: 10px;
+        width: 10px;
+        opacity: 75%;
+        cursor: pointer;
+      }
     }
     .game-arrows-horizontal {
       background-color: #404040;
@@ -123,6 +220,23 @@
       height: 2rem;
       border-radius: 5%;
       position: relative;
+      .clickable {
+        cursor: pointer;
+      }
+      .prev-arrow {
+        position: absolute;
+        left: -1.4rem;
+        top: 4px;
+        bottom: 0;
+        margin: auto;
+      }
+      .next-arrow {
+        position: absolute;
+        right: -1.4rem;
+        top: 4px;
+        bottom: 0;
+        margin: auto;
+      }
       .prev {
         position: absolute;
         left: 5px;

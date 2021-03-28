@@ -11,6 +11,7 @@ export default function Pokedex() {
   const [pokeIndex, setPokemonIndex] = useState(0);
   const [xAxis, setXAxis] = useState(0);
   const [widthImg] = useState(40);
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     dispatch(getPokemon(offset));
@@ -18,12 +19,15 @@ export default function Pokedex() {
 
   const nextPokemon = () => {
     if (pokeIndex < pokemonList.length - 1) {
+      setShowMore(false);
+
       imageSlideNext();
       let newIndex = pokeIndex + 1;
       setPokemonIndex(newIndex);
       imageSlideNext();
     } else if (pokeIndex === pokemonList.length - 1) {
-      console.log("or this");
+      setShowMore(false);
+
       let newOffset = offset + 20;
       dispatch(getPokemon(newOffset));
       setPokemonIndex(0);
@@ -34,11 +38,15 @@ export default function Pokedex() {
 
   const prevPokemon = () => {
     if (pokeIndex > 0) {
+      setShowMore(false);
+
       imageSlidePrev();
       let newIndex = pokeIndex - 1;
       setPokemonIndex(newIndex);
       imageSlidePrev();
     } else if (pokeIndex === 0 && offset > 0) {
+      setShowMore(false);
+
       let newOffset = offset - 20;
       setPokemonIndex(19);
       dispatch(getPokemon(newOffset));
@@ -48,14 +56,8 @@ export default function Pokedex() {
 
   const imageSlideNext = () => {
     let imageListLength = pokemonList.length;
-    console.log(
-      "_____",
-      xAxis,
-      imageListLength * widthImg,
-      xAxis === imageListLength * widthImg
-    );
+
     let newXAxis = xAxis === imageListLength * widthImg ? 0 : xAxis;
-    console.log(newXAxis);
     newXAxis += widthImg;
     newXAxis %= imageListLength * widthImg;
     setXAxis(newXAxis);
@@ -66,7 +68,7 @@ export default function Pokedex() {
 
   const imageSlidePrev = () => {
     let imageListLength = pokemonList.length;
-    console.log("---", xAxis);
+
     let newXAxis = xAxis === 0 ? imageListLength * widthImg : xAxis;
     newXAxis -= widthImg;
     setXAxis(newXAxis);
@@ -76,7 +78,29 @@ export default function Pokedex() {
       "-" + newXAxis + "rem";
   };
 
-  console.log("AXIS--", xAxis);
+  const detailsView = (pokemon) => {
+    console.log(pokemon.stats);
+    let stats = pokemon && pokemon.stats;
+    return (
+      <div className={`details-container ${showMore ? "open" : "close"}`}>
+        <span className="poke-name">{pokemon.name}</span>
+        <div className="stats-wrapper">
+          {stats &&
+            stats.map((stat) => (
+              <div className="stats-row">
+                <span className="">{stat.stat.name}</span>
+                <span className="">{stat.base_stat}</span>
+              </div>
+            ))}
+        </div>
+      </div>
+    );
+  };
+
+  const showMoreDetails = (val) => {
+    setShowMore(val);
+  };
+
   return (
     <div className="pokedex-wrapper">
       <div id="image-slider-container" className="image-slider-container">
@@ -85,22 +109,41 @@ export default function Pokedex() {
             <Spinner />
           ) : (
             <>
-              {pokemonList.map((pokemon) => (
-                <img
-                  key={pokemon.id}
-                  className="pokemon-sprite "
-                  src={pokemon.sprites.front_default}
-                />
+              {pokemonList.map((pokemon, i) => (
+                <div className="display-container">
+                  <img
+                    key={pokemon.id}
+                    className="pokemon-sprite "
+                    src={pokemon.sprites.front_default}
+                  />
+
+                  {i === pokeIndex && detailsView(pokemon)}
+                </div>
               ))}
             </>
           )}
         </div>
       </div>
       <div className="game-arrows-wrapper">
-        <div className="game-arrows-vertical"></div>
+        <div className="game-arrows-vertical">
+          <div onClick={() => showMoreDetails(true)} className="clickable">
+            <div className="up" />
+            <i className="info-arrow material-icons">keyboard_arrow_up</i>
+          </div>
+          <div onClick={() => showMoreDetails(false)} className="clickable">
+            <div className="down" />
+            <i className="hide-arrow material-icons">keyboard_arrow_down</i>
+          </div>
+        </div>
         <div className="game-arrows-horizontal">
-          <div onClick={prevPokemon} className="prev" />
-          <div onClick={nextPokemon} className="next" />
+          <div onClick={prevPokemon} className="clickable">
+            <div onClick={prevPokemon} className="prev" />
+            <i className="prev-arrow material-icons">keyboard_arrow_left</i>
+          </div>
+          <div onClick={nextPokemon} className="clickable">
+            <div onClick={nextPokemon} className="next" />
+            <i className="next-arrow material-icons">keyboard_arrow_right</i>
+          </div>
         </div>
       </div>
     </div>
