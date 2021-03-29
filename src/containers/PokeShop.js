@@ -7,11 +7,10 @@ import { Button } from "components/Button";
 import { Spinner } from "components/LoadingSpinner/Spinner";
 
 export const PokeShop = () => {
+  const dispatch = useDispatch();
   const [offset, setOffset] = useState(0);
-
   const shopList = useSelector(state => state.pokeshop.shopList);
   const shopLoading = useSelector(state => state.pokeshop.loading);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getShopItems(offset));
@@ -22,20 +21,30 @@ export const PokeShop = () => {
     else if (offset !== 0) setOffset(offset - 12);
   };
 
+  const handleBuyItem = item => {
+    dispatch(buyÍtem(item));
+  };
+
   return (
-    <div className="shop-wrapper">
-      <div className="shop-items-wrapper">
+    <div className="grid-wrapper">
+      <div className="item-wrapper" id="shop-item-wrapper">
         {shopLoading ? (
           <div className="shop-loading">
             <Spinner />
           </div>
         ) : (
-          shopList.map((item, i) => <ShopItem key={i} item={item} />)
+          shopList.map((item, i) => (
+            <ShopItem key={i} item={item} buyItem={() => handleBuyItem(item)} />
+          ))
         )}
       </div>
       <div className="shop-button-wrapper">
-        <Button label="prev" onClick={handleOnClick} disabled={offset === 0} />
-        <Button label="next" onClick={handleOnClick} />
+        <Button
+          label="prev"
+          onClick={() => handleOnClick("prev")}
+          disabled={offset === 0}
+        />
+        <Button label="next" onClick={() => handleOnClick("next")} />
       </div>
     </div>
   );

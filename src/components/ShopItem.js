@@ -4,16 +4,16 @@ import { Button } from "./Button";
 
 export const ShopItem = props => {
   return (
-    <div className="shop-item">
+    <div className="item-cell">
       <img src={props.item.sprites.default} alt="img" />
-      <div className="shop-item-details">
-        <div className="shop-item-name">{props.item.name}</div>
-        <div className="shop-item-cost">
+      <div className="item-cell-details">
+        <div className="item-cell-name">{props.item.name}</div>
+        <p>
           {props.item.cost}
           <Gem />
-        </div>
-        <div className="shop-item-buy">
-          <Button label="buy" onClick={() => console.log("click")} />
+        </p>
+        <div className="item-cell-buy">
+          <Button label="buy" onClick={props.buyItem} />
         </div>
       </div>
     </div>

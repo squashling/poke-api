@@ -3,6 +3,7 @@
   flex-flow: column;
   width: 100%;
   height: 100vh;
+  overflow: hidden;
 }
 
 .app-title {
@@ -276,7 +277,7 @@
   }
 }
 
-.shop-wrapper {
+.grid-wrapper {
   width: 100vw;
   display: flex;
   flex-flow: column;
@@ -298,10 +299,11 @@
   margin-left: 20px;
 }
 
-.shop-items-wrapper {
+.item-wrapper {
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
+  align-content: flex-start;
   width: 60%;
   flex: 1;
 }
@@ -314,7 +316,7 @@
   align-items: center;
 }
 
-.shop-item {
+.item-cell {
   margin-bottom: 30px;
   width: 25%;
   display: flex;
@@ -322,23 +324,23 @@
   align-items: center;
 }
 
-.shop-item img {
+.item-cell img {
   height: 50px;
   margin-bottom: 5px;
   width: auto;
 }
 
-.shop-item-details {
+.item-cell-details {
   font-size: 10px;
   width: 80%;
 }
 
-.shop-item-name {
+.item-cell-name {
   margin-right: 10px;
   margin-bottom: 10px;
   text-transform: uppercase;
 }
-.shop-item-cost {
+.item-cell-cost {
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -355,4 +357,33 @@
   height: 12px;
   width: auto;
   margin-left: 10px;
+}
+
+#shop-item-wrapper {
+  .item-cell {
+    height: 26%;
+    p {
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+  }
+}
+
+#poke-pack-item-wrapper {
+  .item-cell {
+    height: 20%;
+    p {
+      font-size: 12px;
+    }
+    .delete-item-quantity {
+      display: flex;
+      flex-direction: row;
+      input {
+        width: 2em;
+      }
+    }
+  }
 }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.scss";
 import { AppTitle } from "assets/title";
 import { PokeShop } from "containers/PokeShop";
-import PokePack from "containers/PokePack";
+import { PokePack } from "containers/PokePack";
 import PokeDetails from "containers/PokeDetails";
 import Pokedex from "containers/Pokedex";
 import Navbar from "components/Navbar";
@@ -12,7 +12,7 @@ function App() {
     "pokeshop",
     "pokepack",
     "poke-details",
-    "pokedex",
+    "pokedex"
   ]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function App() {
     }
   };
 
-  const changeView = (view) => {
+  const changeView = view => {
     setView(view);
   };
 
@@ -42,6 +42,7 @@ function App() {
     <div className="app-wrapper">
       <AppTitle />
       <Navbar navItems={navItems} changeView={changeView} />
+
       {renderView()}
     </div>
   );

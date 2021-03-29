@@ -6,3 +6,5 @@ export const SET_SHOP_ITEMS = "SET_SHOP_ITEMS";
 export const SET_SHOP_LOADING = "SET_SHOP_LOADING";
 //POKEPACK
 export const BUY_ITEM = "BUY_ITEM";
+export const DELETE_ITEM = "DELETE_ITEM";
+export const DELETE_ALL = "DELETE_ALL";

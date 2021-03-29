@@ -6,7 +6,7 @@ export const Button = props => {
       className={`${
         props.disabled ? "button-disabled" : "button-default"
       } button`}
-      onClick={() => props.onClick(props.label)}
+      onClick={props.onClick}
     >
       {props.label}
     </div>
