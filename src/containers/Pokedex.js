@@ -110,7 +110,6 @@ export default function Pokedex() {
       setLikePokemon((isLiked) => [...isLiked, id]);
     }
   };
-  console.log(isLiked);
   return (
     <div className="pokedex-wrapper">
       <div id="image-slider-container" className="image-slider-container">
@@ -121,21 +120,22 @@ export default function Pokedex() {
             <>
               {pokemonList.map((pokemon, i) => (
                 <div className="display-container">
-                  {isLiked.length > 0 && isLiked.includes(pokemon.id) ? (
-                    <div
-                      onClick={() => likePokemon(pokemon.id)}
-                      className="heart"
-                    >
-                      <HeartFilled />{" "}
-                    </div>
-                  ) : (
-                    <div
-                      onClick={() => likePokemon(pokemon.id)}
-                      className="heart"
-                    >
-                      <HeartEmpty />
-                    </div>
+                  {console.log(
+                    isLiked.length > 0,
+                    isLiked.includes(pokemon.id)
                   )}
+
+                  <div
+                    onClick={() => likePokemon(pokemon.id)}
+                    className="heart"
+                  >
+                    {isLiked.length > 0 && isLiked.includes(pokemon.id) ? (
+                      <HeartFilled />
+                    ) : (
+                      <HeartEmpty />
+                    )}
+                  </div>
+
                   <img
                     key={pokemon.id}
                     className="pokemon-sprite "
