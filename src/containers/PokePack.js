@@ -6,46 +6,33 @@ import { useInputs } from "hooks/useInputs";
 
 export const PokePack = () => {
   const dispatch = useDispatch();
-  const [deleteInputList, setDeleteInputList] = useState(null);
   const pokePackItemList = useSelector(state => state.pokepack.packList);
 
-  const [inputList, inputs] = useInputs({
+  const [inputs] = useInputs({
     inputs: pokePackItemList,
     type: "number"
   });
 
-  // const onChangeDeleteQuantity = (value, name) => {
-  //   setDeleteQuantity(deleteQuantity => {
-  //     deleteQuantity[name] = value;
-  //     return deleteQuantity;
-  //   });
-  // };
-
-  // const handleDeleteItem = item => {
-  //   dispatch(deleteItem(item, deleteQuantity[item.name]));
-  //   //TODO SET NEW VALUE
-  // };
-
-  console.log(inputList, inputs);
+  const handleDeleteItem = item => {
+    console.log(item);
+  };
 
   return (
     <div className="grid-wrapper">
       <div className="item-wrapper" id="poke-pack-item-wrapper">
-        {inputs &&
-          inputs.map(input => {
-            return input;
-          })}
-        {/* {input}
         {pokePackItemList.length > 0 &&
-          pokePackItemList.map((item, i) => (
-            <PokePackItem
-              key={i}
-              item={item}
-              vaue={deleteQuantity[item.name]}
-              onChange={e => onChangeDeleteQuantity(e.target.value, item.name)}
-              deleteItem={() => handleDeleteItem(item)}
-            />
-          ))} */}
+          pokePackItemList.map((item, i) => {
+            console.log(item, inputs);
+            let foundInput = inputs.find(input => input.name === item.name);
+            return (
+              <PokePackItem
+                key={i}
+                item={item}
+                deleteItem={() => handleDeleteItem(item)}
+                input={foundInput}
+              />
+            );
+          })}
       </div>
     </div>
   );
