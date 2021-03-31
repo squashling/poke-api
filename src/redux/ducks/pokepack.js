@@ -2,6 +2,7 @@ import axios from "axios";
 import { BUY_ITEM, DELETE_ITEM, DELETE_ALL } from "redux/types";
 
 export const buyÍtem = item => {
+  console.log(item);
   return {
     type: BUY_ITEM,
     item
@@ -28,7 +29,9 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   let packList = state.packList;
-  let foundItem = packList.find(item => item.name === action.item.name);
+  let foundItem = null;
+  if (action.item && action.item.name)
+    foundItem = packList.find(item => item.name === action.item.name);
   switch (action.type) {
     case BUY_ITEM:
       if (foundItem) foundItem.quantity++;

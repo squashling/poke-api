@@ -8,7 +8,7 @@ export const PokePackItem = props => {
         <div className="item-cell-name">{props.item.name}</div>
         <p>{props.item.quantity}</p>
         <div className="delete-item-quantity">
-          <input onChange={props.onChange} value={props.value} type="number" />
+          {props.input.input}
           <div onClick={props.deleteItem}>D</div>
         </div>
         or
