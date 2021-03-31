@@ -14,9 +14,16 @@ export default function Pokedex() {
   const [widthImg] = useState(40);
   const [showMore, setShowMore] = useState(false);
   const [isLiked, setLikePokemon] = useState([]);
+
   useEffect(() => {
     dispatch(getPokemon(offset));
   }, [dispatch]);
+
+  //don't add offser as dependency, it f-s up the call
+
+  useEffect(() => {
+    // isLiked;
+  }, [isLiked]);
 
   const nextPokemon = () => {
     if (pokeIndex < pokemonList.length - 1) {
@@ -102,14 +109,16 @@ export default function Pokedex() {
   };
 
   const likePokemon = (id) => {
+    let newLikes = [...isLiked];
     if (isLiked.includes(id)) {
-      let index = isLiked.indexOf(id);
-      isLiked.splice(index, 1);
-      setLikePokemon(isLiked);
+      let index = newLikes.indexOf(id);
+      newLikes.splice(index, 1);
+      setLikePokemon(newLikes);
     } else {
-      setLikePokemon((isLiked) => [...isLiked, id]);
+      setLikePokemon((newLikes) => [...newLikes, id]);
     }
   };
+
   return (
     <div className="pokedex-wrapper">
       <div id="image-slider-container" className="image-slider-container">
@@ -119,12 +128,10 @@ export default function Pokedex() {
           ) : (
             <>
               {pokemonList.map((pokemon, i) => (
-                <div className="display-container">
+                <div key={pokemon.id} className="display-container">
                   {console.log(
-                    isLiked.length > 0,
-                    isLiked.includes(pokemon.id)
+                    isLiked.length > 0 && isLiked.includes(pokemon.id)
                   )}
-
                   <div
                     onClick={() => likePokemon(pokemon.id)}
                     className="heart"
@@ -135,9 +142,8 @@ export default function Pokedex() {
                       <HeartEmpty />
                     )}
                   </div>
-
                   <img
-                    key={pokemon.id}
+                    alt={pokemon.name}
                     className="pokemon-sprite "
                     src={pokemon.sprites.front_default}
                   />
