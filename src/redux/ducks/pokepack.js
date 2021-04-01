@@ -28,7 +28,7 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action = {}) {
-  let packList = state.packList;
+  let packList = [...state.packList];
   let foundItem = null;
   if (action.item && action.item.name)
     foundItem = packList.find(item => item.name === action.item.name);
