@@ -13,8 +13,8 @@ export const PokePack = () => {
     type: "number"
   });
 
-  const handleDeleteItem = item => {
-    console.log(item);
+  const handleDeleteItem = (item, value) => {
+    dispatch(deleteItem(item, value));
   };
 
   return (
@@ -22,13 +22,12 @@ export const PokePack = () => {
       <div className="item-wrapper" id="poke-pack-item-wrapper">
         {pokePackItemList.length > 0 &&
           pokePackItemList.map((item, i) => {
-            console.log(item, inputs);
             let foundInput = inputs.find(input => input.name === item.name);
             return (
               <PokePackItem
                 key={i}
                 item={item}
-                deleteItem={() => handleDeleteItem(item)}
+                deleteItem={() => handleDeleteItem(item, foundInput.value)}
                 input={foundInput}
               />
             );
