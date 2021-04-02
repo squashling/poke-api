@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export const useInputs = props => {
   const [inputList, setInputs] = useState(
