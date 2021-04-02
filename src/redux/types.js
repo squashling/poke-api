@@ -1,6 +1,7 @@
 //POKEDEX
 export const SET_POKEMON = "SET_POKEMON";
 export const SET_LOADING_POKEMON = "SET_LOADING_POKEMON";
+export const SET_LIKED_POKEMON = "SET_LIKED_POKEMON";
 //POKESHOP
 export const SET_SHOP_ITEMS = "SET_SHOP_ITEMS";
 export const SET_SHOP_LOADING = "SET_SHOP_LOADING";
@@ -8,3 +9,6 @@ export const SET_SHOP_LOADING = "SET_SHOP_LOADING";
 export const BUY_ITEM = "BUY_ITEM";
 export const DELETE_ITEM = "DELETE_ITEM";
 export const DELETE_ALL = "DELETE_ALL";
+//POKE-DETAILS
+export const CATCH_POKEMON = "CATCH_POKEMON";
+export const FOUND_POKEMON = "FOUND_POKEMON";
