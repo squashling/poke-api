@@ -13,10 +13,6 @@ export const PokePack = () => {
     type: "number"
   });
 
-  const handleDeleteItem = (item, value) => {
-    dispatch(deleteItem(item, value));
-  };
-
   return (
     <div className="grid-wrapper">
       <div className="item-wrapper" id="poke-pack-item-wrapper">
@@ -27,7 +23,8 @@ export const PokePack = () => {
               <PokePackItem
                 key={i}
                 item={item}
-                deleteItem={() => handleDeleteItem(item, foundInput.value)}
+                deleteItem={() => dispatch(deleteItem(item, foundInput.value))}
+                deleteAll={() => dispatch(deleteAll(item))}
                 input={foundInput}
               />
             );
