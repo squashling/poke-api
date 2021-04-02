@@ -1,5 +1,9 @@
 import axios from "axios";
-import { SET_POKEMON, SET_LOADING_POKEMON } from "redux/types";
+import {
+  SET_POKEMON,
+  SET_LOADING_POKEMON,
+  SET_LIKED_POKEMON,
+} from "redux/types";
 
 export const getPokemon = (offset) => {
   return (dispatch) => {
@@ -11,9 +15,9 @@ export const getPokemon = (offset) => {
         let requests = res.data.results.map((item) => axios.get(item.url));
         Promise.all(requests)
           .then((values) => {
-            console.log(values);
+            // console.log(values);
             let pokemon = values.map((item) => item.data);
-            console.log(pokemon);
+            // console.log(pokemon);
             dispatch(setPokemon(pokemon, offset));
             setTimeout(() => dispatch(setLoadingPokemon(false)), 200);
           })
@@ -44,10 +48,18 @@ export const setLoadingPokemon = (loading) => {
   };
 };
 
+export const setLikePokemon = (pokemonList) => {
+  return {
+    type: SET_LIKED_POKEMON,
+    likedList: pokemonList,
+  };
+};
+
 const initialState = {
   pokemonList: [],
   offset: 0,
   loadingPokemon: false,
+  likedList: [],
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -62,6 +74,11 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loadingPokemon: action.loadingPokemon,
+      };
+    case SET_LIKED_POKEMON:
+      return {
+        ...state,
+        likedList: action.likedList,
       };
     default:
       return state;

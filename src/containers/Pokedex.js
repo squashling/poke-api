@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getPokemon } from "redux/ducks/pokedex";
+import { getPokemon, setLikePokemon } from "redux/ducks/pokedex";
 import { Spinner } from "components/LoadingSpinner/Spinner";
 import { HeartEmpty } from "assets/heart_empty";
 import { HeartFilled } from "assets/heart_filled";
+
 export default function Pokedex() {
   const pokemonList = useSelector((state) => state.pokedex.pokemonList);
   const offset = useSelector((state) => state.pokedex.offset);
   const loadingPokemon = useSelector((state) => state.pokedex.loadingPokemon);
+  const likedList = useSelector((state) => state.pokedex.likedList);
   const dispatch = useDispatch();
   const [pokeIndex, setPokemonIndex] = useState(0);
   const [xAxis, setXAxis] = useState(0);
   const [widthImg] = useState(40);
   const [showMore, setShowMore] = useState(false);
-  const [isLiked, setLikePokemon] = useState([]);
 
   useEffect(() => {
     dispatch(getPokemon(offset));
   }, [dispatch]);
 
   //don't add offser as dependency, it f-s up the call
-
-  useEffect(() => {
-    // isLiked;
-  }, [isLiked]);
 
   const nextPokemon = () => {
     if (pokeIndex < pokemonList.length - 1) {
@@ -109,13 +106,14 @@ export default function Pokedex() {
   };
 
   const likePokemon = (id) => {
-    let newLikes = [...isLiked];
-    if (isLiked.includes(id)) {
+    let newLikes = [...likedList];
+    if (likedList.includes(id)) {
       let index = newLikes.indexOf(id);
       newLikes.splice(index, 1);
-      setLikePokemon(newLikes);
+      dispatch(setLikePokemon(newLikes));
     } else {
-      setLikePokemon((newLikes) => [...newLikes, id]);
+      newLikes = [...newLikes, id];
+      dispatch(setLikePokemon(newLikes));
     }
   };
 
@@ -129,14 +127,11 @@ export default function Pokedex() {
             <>
               {pokemonList.map((pokemon, i) => (
                 <div key={pokemon.id} className="display-container">
-                  {console.log(
-                    isLiked.length > 0 && isLiked.includes(pokemon.id)
-                  )}
                   <div
                     onClick={() => likePokemon(pokemon.id)}
                     className="heart"
                   >
-                    {isLiked.length > 0 && isLiked.includes(pokemon.id) ? (
+                    {likedList.length > 0 && likedList.includes(pokemon.id) ? (
                       <HeartFilled />
                     ) : (
                       <HeartEmpty />
