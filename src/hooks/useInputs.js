@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Input } from "components/Input";
 
 export const useInputs = props => {
   const [inputList, setInputs] = useState(
@@ -20,10 +21,11 @@ export const useInputs = props => {
       name: input.name,
       value: input.value,
       input: (
-        <input
+        <Input
           value={input.value}
-          onChange={e => handleChange(e.target.value, input.name)}
+          onChange={handleChange}
           type={props.type}
+          name={input.name}
         />
       )
     };
